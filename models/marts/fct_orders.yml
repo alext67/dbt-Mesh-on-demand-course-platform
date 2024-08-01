@@ -1,0 +1,92 @@
+models:
+  - name: fct_orders
+    description: This model aggregates information about orders, including details about the order, customer, and location. It also extracts parts of the order date for further analysis.
+    latest_version: 1
+    access: public
+    group: finance
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: order_id
+        description: A unique identifier for the order.
+        data_type: varchar
+        constraints:
+          - type: not_null
+      - name: location_id
+        description: A unique identifier for the location where the order was placed.
+        data_type: varchar
+        constraints:
+          - type: not_null
+      - name: customer_id
+        description: A unique identifier for the customer who placed the order.
+        data_type: varchar
+        constraints:
+          - type: not_null
+      - name: order_total
+        description: The total amount paid for the order, excluding tax.
+        data_type: number
+        constraints:
+          - type: not_null
+      - name: tax_paid
+        description: The amount of tax paid for the order.
+        data_type: number
+        constraints:
+          - type: not_null
+      - name: ordered_at
+        description: The timestamp when the order was placed.
+        data_type: timestamp_ntz
+        constraints:
+          - type: not_null
+      - name: customer_name
+        description: The name of the customer who placed the order.
+        data_type: varchar
+        constraints:
+          - type: not_null
+      - name: location_name
+        description: The name of the location where the order was placed.
+        data_type: varchar
+        constraints:
+          - type: not_null
+      - name: tax_rate
+        description: The tax rate applied to the order.
+        data_type: number
+        constraints:
+          - type: not_null
+      - name: location_opened_at
+        description: The timestamp when the location where the order was placed opened for business.
+        data_type: timestamp_ntz
+        constraints:
+          - type: not_null
+      - name: ordered_month
+        description: The month extracted from the ordered_at timestamp, indicating when the order was placed.
+        data_type: number
+        constraints:
+          - type: not_null
+      - name: ordered_day
+        description: The day extracted from the ordered_at timestamp, indicating when the order was placed.
+        data_type: number
+        constraints:
+          - type: not_null
+      - name: ordered_year
+        description: The year extracted from the ordered_at timestamp, indicating when the order was placed.
+        data_type: number
+        constraints:
+          - type: not_null
+    versions:
+      - v: 1
+        config:
+          alias: fct_orders
+      - v: 2
+        columns:
+          - name: order_amount
+            data_type: number
+            constraints:
+              - type: not_null
+          - name: location_opened_at
+            data_type: date
+            constraints:
+              - type: not_null
+          - include: all
+            exclude: [order_total]
+

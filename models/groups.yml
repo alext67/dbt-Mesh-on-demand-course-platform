@@ -1,0 +1,11 @@
+groups:
+  - name: finance
+    owner:
+      name: finance
+      email: finance@doc.com
+  - name: product
+    owner:
+      name: product
+      email: product@doc.com
+    
+      
